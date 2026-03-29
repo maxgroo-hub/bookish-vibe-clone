@@ -10,8 +10,7 @@ import {
   PreviewLinkCardContent,
   PreviewLinkCardImage,
 } from "@/components/animate-ui/components/radix/preview-link-card";
-import DomeGallery from "./ReactBitsDomeGallery";
-import { useState } from "react";
+import { DomeGallery } from "./DomeGallery";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 32 },
@@ -203,73 +202,40 @@ const BookMarqueeCard = ({ book }: { book: ArrivalBook }) => (
   </motion.div>
 );
 
-export const NewArrivalsSection = () => {
-  const [hoveredBook, setHoveredBook] = useState<ArrivalBook | null>(null);
-
-  const domeImages = NEW_ARRIVALS.map(book => ({
-    src: book.imageUrl,
-    alt: book.title,
-    metadata: book
-  }));
-
-  return (
-    <section className="py-20 bg-muted/30 overflow-hidden relative h-[600px] md:h-[850px] flex flex-col">
-      {/* Title — inside container, can never be touched by cards */}
-      <div className="container mx-auto px-6 mb-10 z-10">
-        <motion.div
-          className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4"
-          initial="hidden" whileInView="show" viewport={{ once: true }} variants={stagger}
-        >
-          <div>
-            <motion.p variants={fadeUp} className="font-heading font-bold text-sm tracking-[0.3em] uppercase text-muted-foreground mb-2">
-              Fresh Off the Shelf
-            </motion.p>
-            <motion.h2 variants={fadeUp} className="font-heading text-4xl md:text-5xl font-black">
-              New Arrivals
-            </motion.h2>
-          </div>
-          <motion.div variants={fadeUp}>
-            <Link to="/dashboard/books" className="brutal-btn bg-background text-foreground rounded-md font-heading text-sm inline-flex items-center gap-2">
-              View All <ArrowRight className="w-4 h-4" />
-            </Link>
-          </motion.div>
-        </motion.div>
-      </div>
-
-      {/* 3D Dome Gallery Section */}
-      <div className="flex-1 w-full relative">
-        <DomeGallery
-          images={domeImages}
-          fit={0.8}
-          minRadius={600}
-          maxVerticalRotationDeg={0}
-          segments={34}
-          dragDampening={2}
-          grayscale
-          onHover={(book) => setHoveredBook(book)}
-        />
-
-        {/* Hover Card Overlay */}
-        <div className="absolute inset-0 pointer-events-none flex items-center justify-center z-20">
-          <div className="relative w-full h-full flex items-center justify-center">
-            {hoveredBook && (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8, y: 20 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.8, y: 20 }}
-                className="pointer-events-auto"
-              >
-                <div className="brutal-card bg-background p-1 rounded-lg transform rotate-[-2deg]">
-                  <BookMarqueeCard book={hoveredBook} />
-                </div>
-              </motion.div>
-            )}
-          </div>
+export const NewArrivalsSection = () => (
+  <section className="py-20 bg-muted/30 overflow-hidden relative flex flex-col" style={{ height: "820px" }}>
+    <div className="container mx-auto px-6 mb-6 z-10 flex-shrink-0">
+      <motion.div
+        className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4"
+        initial="hidden" whileInView="show" viewport={{ once: true }} variants={stagger}
+      >
+        <div>
+          <motion.p variants={fadeUp} className="font-heading font-bold text-sm tracking-[0.3em] uppercase text-muted-foreground mb-2">
+            Fresh Off the Shelf
+          </motion.p>
+          <motion.h2 variants={fadeUp} className="font-heading text-4xl md:text-5xl font-black">
+            New Arrivals
+          </motion.h2>
         </div>
-      </div>
-    </section>
-  );
-};
+        <motion.div variants={fadeUp}>
+          <Link to="/dashboard/books" className="brutal-btn bg-background text-foreground rounded-md font-heading text-sm inline-flex items-center gap-2">
+            View All <ArrowRight className="w-4 h-4" />
+          </Link>
+        </motion.div>
+      </motion.div>
+    </div>
+
+    <div className="flex-1 w-full relative min-h-0">
+      <DomeGallery
+        items={NEW_ARRIVALS}
+        radius={280}
+        nItems={32}
+        dragDampening={2}
+        grayscale
+      />
+    </div>
+  </section>
+);
 
 /* ─────────────────────────────────────────────────────────────
    4. LIBRARY EVENTS & PROGRAMS

@@ -189,14 +189,37 @@ const ReviewCard = ({
   );
 };
 
+const FeatureCard = ({ f }: { f: Feature }) => {
+  return (
+    <div className="group relative h-[450px] w-[450px] overflow-hidden bg-neutral-200 brutal-border flex-shrink-0">
+      <div
+        style={{
+          backgroundImage: `url(${f.image})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+        className="absolute inset-0 z-0 transition-transform duration-300 group-hover:scale-110"
+      />
+      <div className="absolute inset-0 z-10 flex flex-col justify-between p-8">
+        <div className={`${f.color} w-12 h-12 rounded-lg brutal-border flex items-center justify-center self-start`}>
+          <f.icon className="w-6 h-6" />
+        </div>
+        <div className="bg-gradient-to-br from-white/20 to-white/0 backdrop-blur-lg p-6 rounded-lg">
+          <p className="text-4xl font-black uppercase text-white font-heading mb-2">{f.title}</p>
+          <p className="text-white/80 font-body text-sm leading-relaxed">{f.desc}</p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const FeaturesSection = () => {
   const targetRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: targetRef,
-    offset: ["start start", "end end"]
   });
 
-  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-70%"]);
+  const x = useTransform(scrollYProgress, [0, 1], ["1%", "-95%"]);
 
   return (
     <section id="features" className="relative">
@@ -213,27 +236,9 @@ const FeaturesSection = () => {
       </div>
       <section ref={targetRef} className="relative h-[300vh]">
         <div className="sticky top-0 flex h-screen items-center overflow-hidden">
-          <motion.div style={{ x }} className="flex gap-6 pl-6 w-max">
+          <motion.div style={{ x }} className="flex gap-4">
             {features.map((f) => (
-              <div
-                key={f.title}
-                className="brutal-card p-6 rounded-lg flex-shrink-0 w-[400px] h-[480px] flex flex-col justify-between"
-              >
-                <div>
-                  <div className={`${f.color} w-12 h-12 rounded-lg brutal-border flex items-center justify-center mb-4`}>
-                    <f.icon className="w-6 h-6" />
-                  </div>
-                  <h3 className="font-heading text-2xl font-bold mb-3">{f.title}</h3>
-                  <div className="mb-4 overflow-hidden rounded-lg brutal-border h-48">
-                    <img 
-                      src={f.image} 
-                      alt={f.title} 
-                      className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
-                    />
-                  </div>
-                  <p className="text-muted-foreground font-body text-base leading-relaxed">{f.desc}</p>
-                </div>
-              </div>
+              <FeatureCard key={f.title} f={f} />
             ))}
           </motion.div>
         </div>

@@ -1,0 +1,602 @@
+Add a complete, production-grade Theme/Style Switcher feature to the existing 
+Neo-Brutalist Library Management System. This feature must work seamlessly for 
+BOTH the User Dashboard and Admin Dashboard with full persistence and real-time 
+switching.
+
+---
+
+## 🎯 FEATURE OVERVIEW
+
+- 5 fully distinct themes, each with complete color systems
+- Theme selection UI inside dashboard settings/profile
+- Instant theme switching with smooth transitions (no page reload)
+- Theme persisted in Supabase profiles table + localStorage fallback
+- Synced across devices (login on new device = your theme loads automatically)
+- Separate theme preference for Admin and User roles (admin can have 
+  different theme than their user account)
+- Theme applies to: sidebar, navbar, cards, buttons, tables, modals, 
+  badges, inputs, charts, scrollbars, and custom cursor color
+
+---
+
+## 🎨 THE 5 THEMES
+
+### Theme 1: Neo Brutalist (DEFAULT)
+Identity: Raw, bold, electric — the core website identity
+CSS Variables:
+  --bg-primary: #FFFFFF
+  --bg-secondary: #F5F5F5
+  --bg-card: #FFFFFF
+  --text-primary: #0A0A0A
+  --text-secondary: #333333
+  --text-muted: #666666
+  --accent-primary: #FFE500
+  --accent-secondary: #FF4D4D
+  --accent-tertiary: #0066FF
+  --border-color: #0A0A0A
+  --border-width: 3px
+  --shadow: 4px 4px 0px #0A0A0A
+  --shadow-hover: 6px 6px 0px #0A0A0A
+  --shadow-active: 2px 2px 0px #0A0A0A
+  --sidebar-bg: #0A0A0A
+  --sidebar-text: #FFE500
+  --sidebar-active: #FFE500
+  --sidebar-hover: #1A1A1A
+  --navbar-bg: #FFE500
+  --navbar-text: #0A0A0A
+  --button-primary-bg: #FFE500
+  --button-primary-text: #0A0A0A
+  --button-secondary-bg: #FF4D4D
+  --button-secondary-text: #FFFFFF
+  --input-bg: #FFFFFF
+  --input-border: #0A0A0A
+  --input-focus: #FFE500
+  --badge-bg: #FFE500
+  --badge-text: #0A0A0A
+  --table-header-bg: #0A0A0A
+  --table-header-text: #FFE500
+  --table-row-hover: #FFF9CC
+  --modal-bg: #FFFFFF
+  --modal-overlay: rgba(0,0,0,0.8)
+  --scrollbar-track: #F5F5F5
+  --scrollbar-thumb: #0A0A0A
+  --cursor-color: #FFE500
+  --success: #00FF88
+  --warning: #FFB800
+  --error: #FF4D4D
+  --info: #0066FF
+  Font: Space Grotesk (headings) + Inter (body)
+
+### Theme 2: Midnight Hacker (DARK)
+Identity: Terminal, matrix, hacker culture, neon glow
+CSS Variables:
+  --bg-primary: #0D0D0D
+  --bg-secondary: #111111
+  --bg-card: #1A1A1A
+  --text-primary: #00FF41
+  --text-secondary: #CCFF00
+  --text-muted: #4D7A4D
+  --accent-primary: #00FF41
+  --accent-secondary: #CCFF00
+  --accent-tertiary: #00FFFF
+  --border-color: #00FF41
+  --border-width: 2px
+  --shadow: 4px 4px 0px #00FF41
+  --shadow-hover: 6px 6px 0px #00FF41
+  --shadow-active: 2px 2px 0px #00FF41
+  --sidebar-bg: #050505
+  --sidebar-text: #00FF41
+  --sidebar-active: #00FF41
+  --sidebar-hover: #0D1F0D
+  --navbar-bg: #111111
+  --navbar-text: #00FF41
+  --button-primary-bg: #00FF41
+  --button-primary-text: #0D0D0D
+  --button-secondary-bg: #CCFF00
+  --button-secondary-text: #0D0D0D
+  --input-bg: #1A1A1A
+  --input-border: #00FF41
+  --input-focus: #CCFF00
+  --badge-bg: #003300
+  --badge-text: #00FF41
+  --table-header-bg: #003300
+  --table-header-text: #00FF41
+  --table-row-hover: #0D1F0D
+  --modal-bg: #1A1A1A
+  --modal-overlay: rgba(0,0,0,0.95)
+  --scrollbar-track: #111111
+  --scrollbar-thumb: #00FF41
+  --cursor-color: #00FF41
+  --success: #00FF41
+  --warning: #CCFF00
+  --error: #FF4444
+  --info: #00FFFF
+  Font: JetBrains Mono (headings) + JetBrains Mono (body) — full monospace
+
+### Theme 3: Vaporwave Dreams (DARK)
+Identity: Retro 80s, synthwave, neon glow, nostalgic futurism
+CSS Variables:
+  --bg-primary: #1A0533
+  --bg-secondary: #0F0320
+  --bg-card: #240845
+  --text-primary: #FFFFFF
+  --text-secondary: #C8B6FF
+  --text-muted: #7B5EA7
+  --accent-primary: #F72585
+  --accent-secondary: #9B5DE5
+  --accent-tertiary: #00F5FF
+  --border-color: #9B5DE5
+  --border-width: 2px
+  --shadow: 4px 4px 0px #F72585
+  --shadow-hover: 6px 6px 0px #9B5DE5
+  --shadow-active: 2px 2px 0px #F72585
+  --sidebar-bg: #0F0320
+  --sidebar-text: #C8B6FF
+  --sidebar-active: #F72585
+  --sidebar-hover: #1A0533
+  --navbar-bg: #1A0533
+  --navbar-text: #F72585
+  --button-primary-bg: #F72585
+  --button-primary-text: #FFFFFF
+  --button-secondary-bg: #9B5DE5
+  --button-secondary-text: #FFFFFF
+  --input-bg: #240845
+  --input-border: #9B5DE5
+  --input-focus: #F72585
+  --badge-bg: #3D0F6B
+  --badge-text: #C8B6FF
+  --table-header-bg: #3D0F6B
+  --table-header-text: #F72585
+  --table-row-hover: #2A0A52
+  --modal-bg: #240845
+  --modal-overlay: rgba(10,0,25,0.95)
+  --scrollbar-track: #1A0533
+  --scrollbar-thumb: #F72585
+  --cursor-color: #00F5FF
+  --success: #00FF88
+  --warning: #FFB800
+  --error: #FF4D4D
+  --info: #00F5FF
+  Font: Orbitron (headings) + Inter (body)
+  Special: Add subtle CRT scanline overlay effect on cards using CSS
+
+### Theme 4: Pastel Riot (LIGHT)
+Identity: Kawaii brutalism, soft chaos, cute meets raw
+CSS Variables:
+  --bg-primary: #FFF5F7
+  --bg-secondary: #FFF0F5
+  --bg-card: #FFFFFF
+  --text-primary: #2D0A1F
+  --text-secondary: #5C2D4A
+  --text-muted: #9C7A8A
+  --accent-primary: #FFB3C6
+  --accent-secondary: #C8B6FF
+  --accent-tertiary: #B8F0D0
+  --border-color: #2D0A1F
+  --border-width: 3px
+  --shadow: 4px 4px 0px #FFB3C6
+  --shadow-hover: 6px 6px 0px #C8B6FF
+  --shadow-active: 2px 2px 0px #FFB3C6
+  --sidebar-bg: #FFB3C6
+  --sidebar-text: #2D0A1F
+  --sidebar-active: #FFFFFF
+  --sidebar-hover: #FFC8D6
+  --navbar-bg: #C8B6FF
+  --navbar-text: #2D0A1F
+  --button-primary-bg: #FFB3C6
+  --button-primary-text: #2D0A1F
+  --button-secondary-bg: #C8B6FF
+  --button-secondary-text: #2D0A1F
+  --input-bg: #FFFFFF
+  --input-border: #2D0A1F
+  --input-focus: #FFB3C6
+  --badge-bg: #B8F0D0
+  --badge-text: #2D0A1F
+  --table-header-bg: #FFB3C6
+  --table-header-text: #2D0A1F
+  --table-row-hover: #FFF0F5
+  --modal-bg: #FFFFFF
+  --modal-overlay: rgba(45,10,31,0.7)
+  --scrollbar-track: #FFF0F5
+  --scrollbar-thumb: #FFB3C6
+  --cursor-color: #C8B6FF
+  --success: #B8F0D0
+  --warning: #FFE5A0
+  --error: #FFB3C6
+  --info: #A0C4FF
+  Font: Nunito (headings) + Nunito (body) — rounded, friendly
+
+### Theme 5: Ghost Protocol (LIGHT)
+Identity: Ultra minimal, newspaper editorial, grayscale brutalism
+CSS Variables:
+  --bg-primary: #FFFFFF
+  --bg-secondary: #F0F0F0
+  --bg-card: #FFFFFF
+  --text-primary: #111111
+  --text-secondary: #444444
+  --text-muted: #888888
+  --accent-primary: #111111
+  --accent-secondary: #555555
+  --accent-tertiary: #888888
+  --border-color: #111111
+  --border-width: 3px
+  --shadow: 4px 4px 0px #111111
+  --shadow-hover: 6px 6px 0px #111111
+  --shadow-active: 2px 2px 0px #111111
+  --sidebar-bg: #111111
+  --sidebar-text: #FFFFFF
+  --sidebar-active: #FFFFFF
+  --sidebar-hover: #222222
+  --navbar-bg: #FFFFFF
+  --navbar-text: #111111
+  --button-primary-bg: #111111
+  --button-primary-text: #FFFFFF
+  --button-secondary-bg: #FFFFFF
+  --button-secondary-text: #111111
+  --input-bg: #FFFFFF
+  --input-border: #111111
+  --input-focus: #444444
+  --badge-bg: #111111
+  --badge-text: #FFFFFF
+  --table-header-bg: #111111
+  --table-header-text: #FFFFFF
+  --table-row-hover: #F0F0F0
+  --modal-bg: #FFFFFF
+  --modal-overlay: rgba(0,0,0,0.75)
+  --scrollbar-track: #F0F0F0
+  --scrollbar-thumb: #111111
+  --cursor-color: #111111
+  --success: #333333
+  --warning: #666666
+  --error: #111111
+  --info: #555555
+  Font: Playfair Display (headings) + Georgia (body) — editorial serif
+
+---
+
+## 🧩 IMPLEMENTATION ARCHITECTURE
+
+### 1. CSS Custom Properties System
+- Define all theme variables on :root in index.css
+- Each theme = one CSS class on <body> tag:
+  body.theme-neo-brutalist { ... }
+  body.theme-midnight-hacker { ... }
+  body.theme-vaporwave-dreams { ... }
+  body.theme-pastel-riot { ... }
+  body.theme-ghost-protocol { ... }
+- ALL components use var(--variable-name) instead of hardcoded colors
+- Tailwind CSS extend config maps to CSS variables:
+  colors: {
+    'theme-bg': 'var(--bg-primary)',
+    'theme-card': 'var(--bg-card)',
+    'theme-accent': 'var(--accent-primary)',
+    'theme-text': 'var(--text-primary)',
+    'theme-border': 'var(--border-color)',
+  }
+  boxShadow: {
+    'brutal': 'var(--shadow)',
+    'brutal-hover': 'var(--shadow-hover)',
+    'brutal-active': 'var(--shadow-active)',
+  }
+
+### 2. Theme Context & Zustand Store
+Create src/store/themeStore.ts:
+
+interface ThemeStore {
+  currentTheme: ThemeKey
+  isTransitioning: boolean
+  setTheme: (theme: ThemeKey) => void
+  initTheme: (userId?: string) => void
+}
+
+type ThemeKey =
+  | 'neo-brutalist'
+  | 'midnight-hacker'
+  | 'vaporwave-dreams'
+  | 'pastel-riot'
+  | 'ghost-protocol'
+
+const useThemeStore = create<ThemeStore>((set, get) => ({
+  currentTheme: 'neo-brutalist',
+  isTransitioning: false,
+  
+  setTheme: async (theme) => {
+    // 1. Set transitioning state (trigger CSS transition)
+    set({ isTransitioning: true })
+    
+    // 2. Apply theme class to body
+    document.body.className = document.body.className
+      .replace(/theme-\S+/g, '')
+      .trim()
+    document.body.classList.add(`theme-${theme}`)
+    
+    // 3. Save to localStorage immediately
+    localStorage.setItem('lms_theme', theme)
+    
+    // 4. Save to Supabase profiles table (async, non-blocking)
+    const user = supabase.auth.getUser()
+    if (user) {
+      await supabase
+        .from('profiles')
+        .update({ theme_preference: theme })
+        .eq('id', user.id)
+    }
+    
+    // 5. End transition
+    setTimeout(() => set({ isTransitioning: false, currentTheme: theme }), 300)
+  },
+  
+  initTheme: async (userId) => {
+    // Priority: Supabase > localStorage > default
+    if (userId) {
+      const { data } = await supabase
+        .from('profiles')
+        .select('theme_preference')
+        .eq('id', userId)
+        .single()
+      
+      if (data?.theme_preference) {
+        get().setTheme(data.theme_preference)
+        return
+      }
+    }
+    const saved = localStorage.getItem('lms_theme') as ThemeKey
+    get().setTheme(saved || 'neo-brutalist')
+  }
+}))
+
+### 3. Theme Transition Animation
+Add to index.css:
+* {
+  transition: 
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+/* Disable transition on theme init to prevent flash */
+body.theme-initializing * {
+  transition: none !important;
+}
+
+### 4. Font Loading Per Theme
+Dynamically load Google Fonts per theme:
+
+const THEME_FONTS = {
+  'neo-brutalist': 'Space+Grotesk:wght@400;700;800&family=Inter',
+  'midnight-hacker': 'JetBrains+Mono:wght@400;700;800',
+  'vaporwave-dreams': 'Orbitron:wght@400;700;900&family=Inter',
+  'pastel-riot': 'Nunito:wght@400;700;800;900',
+  'ghost-protocol': 'Playfair+Display:wght@400;700;900&family=Georgia'
+}
+
+Load via dynamic <link> tag injection in setTheme():
+const loadFont = (theme) => {
+  const existing = document.getElementById('theme-font')
+  if (existing) existing.remove()
+  const link = document.createElement('link')
+  link.id = 'theme-font'
+  link.rel = 'stylesheet'
+  link.href = `https://fonts.googleapis.com/css2?family=${THEME_FONTS[theme]}&display=swap`
+  document.head.appendChild(link)
+}
+
+---
+
+## 🖼️ THEME SWITCHER UI COMPONENT
+
+### Location
+- User Dashboard: /user/profile → Appearance tab
+- Admin Dashboard: /admin/settings → Appearance section
+- Quick access: Theme icon button in top navbar (opens theme picker popover)
+
+### Theme Picker Popover (Navbar Quick Access)
+- Trigger: Palette icon button in top-right navbar
+- Popover: Opens below with 5 theme preview cards in a row
+- Each card (120px × 80px):
+  - Shows mini preview: colored top bar + tiny sidebar + 2 colored boxes
+  - Theme name below in bold
+  - Active theme: thick black border + checkmark badge
+  - Hover: translate(-2px, -2px) + shadow grows (neo-brutalist hover)
+  - Click: instantly switches theme with transition
+- Popover has neo-brutalist border styled in current theme
+- Close on outside click or Escape key
+
+### Full Theme Settings Page (Profile/Settings)
+- Section header: "APPEARANCE & STYLE" in bold uppercase
+- 5 large theme cards in a responsive grid (2 col mobile, 3 col tablet, 5 col desktop)
+- Each large card (full preview):
+  - Header: theme name + mode badge (LIGHT/DARK)
+  - Preview window (200px tall):
+    - Simulated mini dashboard: sidebar strip + navbar bar + 3 stat cards
+    - All using actual theme colors (not screenshots — CSS-generated previews)
+  - Color palette dots row: 5 circles showing main colors
+  - Description: one-line vibe description
+  - "APPLY THEME" button (disabled + checkmark if currently active)
+- Active theme: highlighted card with "ACTIVE" badge
+- Saving indicator: "Theme saved to your account ✓" toast on apply
+
+### Theme Preview Cards (CSS-generated mini dashboard)
+Build each preview as a tiny scaled div (not image) showing:
+- Sidebar: 20% width, sidebar-bg color, 3 fake nav items
+- Main area: 80% width, bg-primary color
+  - Top navbar strip: navbar-bg color
+  - 3 small stat cards: bg-card + border-color + shadow
+  - Accent colored elements: buttons, badges
+
+---
+
+## 🔄 REAL-TIME THEME SYNC
+
+- If user logged in on 2 devices, changing theme on device 1 
+  reflects on device 2 within 2 seconds
+- Use Supabase Realtime subscription on profiles table:
+
+supabase
+  .channel('theme-sync')
+  .on('postgres_changes', {
+    event: 'UPDATE',
+    schema: 'public',
+    table: 'profiles',
+    filter: `id=eq.${userId}`
+  }, (payload) => {
+    if (payload.new.theme_preference !== currentTheme) {
+      setTheme(payload.new.theme_preference)
+    }
+  })
+  .subscribe()
+
+---
+
+## 🗄️ SUPABASE CHANGES
+
+### profiles table — add column:
+ALTER TABLE profiles 
+ADD COLUMN theme_preference TEXT 
+DEFAULT 'neo-brutalist' 
+CHECK (theme_preference IN (
+  'neo-brutalist',
+  'midnight-hacker', 
+  'vaporwave-dreams',
+  'pastel-riot',
+  'ghost-protocol'
+));
+
+### RLS Policy:
+-- Users can update their own theme preference
+CREATE POLICY "Users can update own theme"
+ON profiles FOR UPDATE
+USING (auth.uid() = id)
+WITH CHECK (auth.uid() = id);
+
+---
+
+## 🖱️ CURSOR COLOR PER THEME
+
+Update the custom cursor component to read --cursor-color CSS variable:
+- Neo Brutalist: Yellow cursor (#FFE500)
+- Midnight Hacker: Neon Green cursor (#00FF41)
+- Vaporwave Dreams: Cyan cursor (#00F5FF)
+- Pastel Riot: Lavender cursor (#C8B6FF)
+- Ghost Protocol: Black cursor (#111111)
+
+In CustomCursor component:
+const cursorColor = getComputedStyle(document.documentElement)
+  .getPropertyValue('--cursor-color').trim()
+
+Re-read cursor color whenever theme changes using useEffect 
+watching currentTheme from themeStore.
+
+---
+
+## 📊 CHARTS PER THEME
+
+Recharts / Chart.js colors must update per theme:
+Create useChartTheme() hook that returns:
+
+const chartColors = {
+  'neo-brutalist': ['#FFE500', '#FF4D4D', '#0066FF', '#00FF88', '#FF8C00'],
+  'midnight-hacker': ['#00FF41', '#CCFF00', '#00FFFF', '#4DFF4D', '#99FF99'],
+  'vaporwave-dreams': ['#F72585', '#9B5DE5', '#00F5FF', '#7B2D8B', '#C77DFF'],
+  'pastel-riot': ['#FFB3C6', '#C8B6FF', '#B8F0D0', '#A0C4FF', '#FFE5A0'],
+  'ghost-protocol': ['#111111', '#444444', '#777777', '#AAAAAA', '#DDDDDD'],
+}
+
+Pass these colors as fill/stroke props to chart components.
+
+---
+
+## 🎭 SPECIAL THEME EFFECTS
+
+### Midnight Hacker — Matrix Rain Easter Egg
+- In settings, toggle: "Enable Matrix Rain Background"
+- Subtle canvas animation behind dashboard content (very low opacity: 0.03)
+- Green characters falling like the matrix
+- Uses requestAnimationFrame, cancels on theme change
+
+### Vaporwave Dreams — CRT Scanlines
+- Pseudo-element overlay on .dashboard-layout:
+  ::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.03) 2px,
+      rgba(0,0,0,0.03) 4px
+    );
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+### Pastel Riot — Floating Emoji Particles
+- Subtle floating emojis (📚 ✨ 🌸 💜) drift across screen
+- Very subtle, low opacity (0.15), slow animation
+- CSS keyframe animation, no JS needed
+- Toggle off in accessibility settings
+
+### Ghost Protocol — Grain/Noise Overlay
+- SVG noise filter applied to body
+- Creates newspaper print texture feel
+- filter: url(#noise) on background elements
+
+---
+
+## 📱 RESPONSIVE THEME SWITCHER
+
+Mobile (< 768px):
+- Theme picker in navbar collapses to icon only
+- Full theme settings page shows 2-column grid of theme cards
+- Theme cards are smaller (compact preview)
+- Bottom sheet instead of popover for quick picker
+
+Tablet (768px - 1024px):
+- 3-column grid for theme cards
+- Popover works normally
+
+Desktop (> 1024px):
+- 5-column grid (all themes in one row)
+- Full-size preview cards
+- Popover with all 5 mini previews
+
+---
+
+## ✅ DELIVERABLES
+
+1. src/store/themeStore.ts — Complete Zustand theme store
+2. src/components/theme/ThemeSwitcher.tsx — Navbar quick-access popover
+3. src/components/theme/ThemeSettingsPage.tsx — Full theme selection UI
+4. src/components/theme/ThemePreviewCard.tsx — Individual theme card component
+5. src/components/theme/MiniDashboardPreview.tsx — CSS mini dashboard preview
+6. src/hooks/useChartTheme.ts — Chart color hook
+7. src/hooks/useThemeSync.ts — Supabase realtime theme sync hook
+8. src/styles/themes.css — All 5 theme CSS variable definitions
+9. tailwind.config.ts — Updated with theme-aware color tokens
+10. Supabase migration SQL — profiles table update + RLS policy
+11. Updated CustomCursor.tsx — Theme-aware cursor color
+12. Special effects components:
+    - MatrixRain.tsx (Midnight Hacker)
+    - CRTOverlay.tsx (Vaporwave Dreams)
+    - FloatingParticles.tsx (Pastel Riot)
+    - GrainOverlay.tsx (Ghost Protocol)
+
+---
+
+## 🎯 QUALITY REQUIREMENTS
+
+- Theme switch must complete within 300ms (no janky flash)
+- No hardcoded color values anywhere in components after refactor
+- Theme persists across: page refresh, logout/login, new device
+- All 5 themes pass WCAG AA contrast ratio minimum
+- Keyboard accessible theme switcher (Tab + Enter to select)
+- Theme preference shown in user profile summary
+- Admin and User can have independently saved theme preferences
+- Loading state while theme syncs from Supabase on login
+- Graceful fallback: if Supabase fails, use localStorage theme
+
+Build this as a plug-and-play theme system that can have new themes 
+added in the future by only adding a new CSS class + theme config object,
+with zero changes to existing components.

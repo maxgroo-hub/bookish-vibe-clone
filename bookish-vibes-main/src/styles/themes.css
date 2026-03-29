@@ -1,0 +1,219 @@
+/* ============================================================
+   LIBRAVAULT THEME SYSTEM
+   All 5 theme classes override the global CSS variables.
+   Components use Tailwind's hsl(var(--variable)) tokens.
+   ============================================================ */
+
+/* Smooth transitions for all themed properties */
+body:not(.theme-initializing) * {
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    color 0.25s ease,
+    box-shadow 0.25s ease,
+    fill 0.25s ease !important;
+}
+
+/* ─── Theme 1: Neo Brutalist (DEFAULT / LIGHT) ──────────────── */
+body.theme-neo-brutalist {
+  --background: 0 0% 100%;
+  --foreground: 0 0% 4%;
+  --card: 0 0% 100%;
+  --card-foreground: 0 0% 4%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 0 0% 4%;
+  --primary: 53 100% 50%;
+  --primary-foreground: 0 0% 4%;
+  --secondary: 0 100% 65%;
+  --secondary-foreground: 0 0% 100%;
+  --muted: 0 0% 96%;
+  --muted-foreground: 0 0% 40%;
+  --accent: 220 100% 50%;
+  --accent-foreground: 0 0% 100%;
+  --destructive: 0 100% 65%;
+  --destructive-foreground: 0 0% 100%;
+  --success: 151 100% 50%;
+  --success-foreground: 0 0% 4%;
+  --border: 0 0% 4%;
+  --input: 0 0% 4%;
+  --ring: 53 100% 50%;
+
+  --t-sidebar-bg: #0A0A0A;
+  --t-sidebar-text: #FFE500;
+  --t-sidebar-active-bg: #FFE500;
+  --t-sidebar-active-text: #0A0A0A;
+  --t-sidebar-hover: #1A1A1A;
+  --t-navbar-bg: #FFFFFF;
+  --t-shadow-color: #0A0A0A;
+  --t-cursor-color: #FFE500;
+  --t-border-width: 3px;
+
+  --shadow-brutal: 4px 4px 0px var(--t-shadow-color);
+  --shadow-brutal-lg: 6px 6px 0px var(--t-shadow-color);
+  --shadow-brutal-hover: 8px 8px 0px var(--t-shadow-color);
+
+  --font-heading: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+/* ─── Theme 2: Midnight Hacker (DARK) ───────────────────────── */
+body.theme-midnight-hacker {
+  --background: 0 0% 5%;
+  --foreground: 135 100% 50%;
+  --card: 0 0% 10%;
+  --card-foreground: 135 100% 50%;
+  --popover: 0 0% 10%;
+  --popover-foreground: 135 100% 50%;
+  --primary: 135 100% 50%;
+  --primary-foreground: 0 0% 5%;
+  --secondary: 79 100% 50%;
+  --secondary-foreground: 0 0% 5%;
+  --muted: 0 0% 13%;
+  --muted-foreground: 120 22% 39%;
+  --accent: 180 100% 50%;
+  --accent-foreground: 0 0% 5%;
+  --destructive: 0 100% 63%;
+  --destructive-foreground: 0 0% 100%;
+  --success: 135 100% 50%;
+  --success-foreground: 0 0% 5%;
+  --border: 135 100% 50%;
+  --input: 135 100% 50%;
+  --ring: 135 100% 50%;
+
+  --t-sidebar-bg: #050505;
+  --t-sidebar-text: #00FF41;
+  --t-sidebar-active-bg: #00FF41;
+  --t-sidebar-active-text: #0D0D0D;
+  --t-sidebar-hover: #0D1F0D;
+  --t-navbar-bg: #111111;
+  --t-shadow-color: #00FF41;
+  --t-cursor-color: #00FF41;
+  --t-border-width: 2px;
+
+  --shadow-brutal: 4px 4px 0px var(--t-shadow-color);
+  --shadow-brutal-lg: 6px 6px 0px var(--t-shadow-color);
+  --shadow-brutal-hover: 8px 8px 0px var(--t-shadow-color);
+
+  --font-heading: 'JetBrains Mono', monospace;
+  --font-body: 'JetBrains Mono', monospace;
+}
+
+/* ─── Theme 3: Vaporwave Dreams (DARK) ──────────────────────── */
+body.theme-vaporwave-dreams {
+  --background: 276 89% 11%;
+  --foreground: 0 0% 100%;
+  --card: 274 88% 15%;
+  --card-foreground: 0 0% 100%;
+  --popover: 274 88% 15%;
+  --popover-foreground: 0 0% 100%;
+  --primary: 325 93% 56%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 274 73% 63%;
+  --secondary-foreground: 0 0% 100%;
+  --muted: 272 96% 7%;
+  --muted-foreground: 272 30% 51%;
+  --accent: 183 100% 50%;
+  --accent-foreground: 276 89% 11%;
+  --destructive: 0 100% 65%;
+  --destructive-foreground: 0 0% 100%;
+  --success: 151 100% 50%;
+  --success-foreground: 0 0% 4%;
+  --border: 274 73% 63%;
+  --input: 274 73% 63%;
+  --ring: 325 93% 56%;
+
+  --t-sidebar-bg: #0F0320;
+  --t-sidebar-text: #C8B6FF;
+  --t-sidebar-active-bg: #F72585;
+  --t-sidebar-active-text: #FFFFFF;
+  --t-sidebar-hover: #1A0533;
+  --t-navbar-bg: #1A0533;
+  --t-shadow-color: #F72585;
+  --t-cursor-color: #00F5FF;
+  --t-border-width: 2px;
+
+  --shadow-brutal: 4px 4px 0px var(--t-shadow-color);
+  --shadow-brutal-lg: 6px 6px 0px var(--t-shadow-color);
+  --shadow-brutal-hover: 8px 8px 0px var(--t-shadow-color);
+
+  --font-heading: 'Orbitron', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+/* CRT scanline effect for Vaporwave */
+body.theme-vaporwave-dreams .brutal-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.08) 2px,
+    rgba(0, 0, 0, 0.08) 4px
+  );
+  pointer-events: none;
+  z-index: 1;
+  border-radius: inherit;
+}
+
+body.theme-vaporwave-dreams .brutal-card > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* ─── Theme 4: Pastel Riot (LIGHT) ──────────────────────────── */
+body.theme-pastel-riot {
+  --background: 345 100% 98%;
+  --foreground: 331 64% 11%;
+  --card: 0 0% 100%;
+  --card-foreground: 331 64% 11%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 331 64% 11%;
+  --primary: 344 100% 85%;
+  --primary-foreground: 331 64% 11%;
+  --secondary: 257 100% 85%;
+  --secondary-foreground: 331 64% 11%;
+  --muted: 334 100% 97%;
+  --muted-foreground: 336 14% 55%;
+  --accent: 151 73% 83%;
+  --accent-foreground: 331 64% 11%;
+  --destructive: 344 100% 85%;
+  --destructive-foreground: 331 64% 11%;
+  --success: 151 73% 83%;
+  --success-foreground: 331 64% 11%;
+  --border: 331 64% 11%;
+  --input: 331 64% 11%;
+  --ring: 344 100% 85%;
+
+  --t-sidebar-bg: #FFB3C6;
+  --t-sidebar-text: #2D0A1F;
+  --t-sidebar-active-bg: #FFFFFF;
+  --t-sidebar-active-text: #2D0A1F;
+  --t-sidebar-hover: #FFC8D6;
+  --t-navbar-bg: #C8B6FF;
+  --t-shadow-color: #FFB3C6;
+  --t-cursor-color: #C8B6FF;
+  --t-border-width: 3px;
+
+  --shadow-brutal: 4px 4px 0px var(--t-shadow-color);
+  --shadow-brutal-lg: 6px 6px 0px var(--t-shadow-color);
+  --shadow-brutal-hover: 8px 8px 0px var(--t-shadow-color);
+
+  --font-heading: 'Nunito', sans-serif;
+  --font-body: 'Nunito', sans-serif;
+}
+
+
+/* ─── Scrollbar theming ──────────────────────────────────────── */
+body.theme-neo-brutalist ::-webkit-scrollbar-track { background: #F5F5F5; }
+body.theme-neo-brutalist ::-webkit-scrollbar-thumb { background: #0A0A0A; }
+body.theme-midnight-hacker ::-webkit-scrollbar-track { background: #111111; }
+body.theme-midnight-hacker ::-webkit-scrollbar-thumb { background: #00FF41; }
+body.theme-vaporwave-dreams ::-webkit-scrollbar-track { background: #1A0533; }
+body.theme-vaporwave-dreams ::-webkit-scrollbar-thumb { background: #F72585; }
+body.theme-pastel-riot ::-webkit-scrollbar-track { background: #FFF0F5; }
+body.theme-pastel-riot ::-webkit-scrollbar-thumb { background: #FFB3C6; }
+
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-thumb { border-radius: 0; }

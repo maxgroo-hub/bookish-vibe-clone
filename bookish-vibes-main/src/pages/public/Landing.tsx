@@ -215,12 +215,24 @@ const FeatureCard = ({ f }: { f: Feature }) => {
 
 const FeaturesSection = () => {
   const targetRef = useRef<HTMLElement>(null);
+  const carouselRef = useRef<HTMLDivElement>(null);
+
   const { scrollYProgress } = useScroll({
     target: targetRef,
     offset: ["start start", "end end"],
   });
 
-  const x = useTransform(scrollYProgress, [0, 1], ["1%", "-95%"]);
+  const x = useMotionValue(0);
+
+  useEffect(() => {
+    return scrollYProgress.on("change", (latest) => {
+      if (!carouselRef.current) return;
+      const carouselWidth = carouselRef.current.scrollWidth;
+      const viewportWidth = window.innerWidth;
+      const maxScroll = carouselWidth - viewportWidth;
+      x.set(-latest * maxScroll);
+    });
+  }, [scrollYProgress, x]);
 
   return (
     <section id="features" className="relative">
@@ -237,7 +249,7 @@ const FeaturesSection = () => {
       </div>
       <section ref={targetRef} className="relative h-[300vh]">
         <div className="sticky top-0 flex h-screen items-center overflow-hidden">
-          <motion.div style={{ x }} className="flex gap-4">
+          <motion.div ref={carouselRef} style={{ x }} className="flex gap-4">
             {features.map((f) => (
               <FeatureCard key={f.title} f={f} />
             ))}
